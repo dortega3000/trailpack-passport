@@ -8,5 +8,8 @@ module.exports = {
 
   onUserLogged: (app, user) => {
     return Promise.resolve(user)
+  },
+  onUserCreated: (app, user) => {
+    return Promise.resolve(user)
   }
 }

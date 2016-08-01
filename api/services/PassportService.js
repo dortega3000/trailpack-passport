@@ -132,11 +132,14 @@ module.exports = class PassportService extends Service {
       return Promise.reject(err)
     }
 
+
+    const onUserCreated = _.get(this.app, 'config.passport.onUserCreated')
+
     return this.app.services.FootprintService.create('user', userInfos).then(user => {
       return this.app.services.FootprintService.createAssociation('user', user.id, 'passports', {
         protocol: 'local',
         password: password
-      }).then(passport => Promise.resolve(user))
+      }).then(passport => Promise.resolve(onUserCreated(this.app,user)))
     })
   }
 
